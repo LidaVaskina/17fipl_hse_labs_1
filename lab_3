@@ -1,0 +1,46 @@
+"""
+Labour work #3
+ Building an own N-gram model
+"""
+
+text = '''Mary wanted to swim. However, she was afraid of sharks. Farida Bedwei grew up loving superheroes but noticed there were never any with her condition, cerebral palsy. So she decided to create one herself.
+Her comic book character Karmzah gets her power from her crutches that she has to use for her cerebral palsy.'''
+
+def split_by_sentence(text: str) -> list:
+    l = []
+    text_split = text.split('. ')
+    count = 0
+    for sentence in text_split:
+        text_split[count] = sentence.split()
+        count += 1
+    return text_split
+big_list = split_by_sentence(text)
+
+
+def word_storage(big_list):
+    word_storage = {}
+    count = 0
+    for sentence in big_list:
+        for word in sentence:
+            if word not in word_storage:
+                word_storage[word] = count
+                count += 1
+    return word_storage
+print(word_storage(big_list))
+
+
+def word_id(word_storage, word = 'hello'):
+    if word in word_storage:
+        return word_storage[word]
+    else: #return None
+        max_value = 0
+        for value in word_storage.values():
+            if value > max_value:
+                max_value = value
+        word_storage[word] = max_value + 1
+        return word_storage[word]
+res = word_id(word_storage(big_list))
+print(res)
+
+
+
